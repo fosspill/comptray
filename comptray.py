@@ -4,7 +4,6 @@ import sys
 import os
 import os.path
 import gtk
-import gobject
 from subprocess import CalledProcessError, check_output, call
 
 pygtklibdir = os.path.join("/usr/lib", "pygtk", "2.0")
