@@ -47,7 +47,7 @@ def on_right_click(data, event_button, event_time):
 def on_left_click(event):
   togglecompton()
 
-def openconfig():
+def openconfig(data=None):
 	subprocess.check_call(["compton-conf"])
   
 def comptonisrunning():
