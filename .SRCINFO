@@ -7,7 +7,9 @@ pkgbase = comptray
 	license = GPL
 	depends = python2
 	depends = gtk2
+	depends = pygtk2
 	depends = compton
+	optdepends = compton-conf: GUI configuration for Compton
 	source = git+http://github.com/oleerik/comptray.git
 	md5sums = SKIP
 

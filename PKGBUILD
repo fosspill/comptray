@@ -11,7 +11,9 @@ url="http://github.com/oleerik/comptray"
 license=('GPL')
 depends=('python2'
 	'gtk2'
+	'pygtk2'
 	'compton')
+optdepends=('compton-conf: GUI configuration for Compton')
 source=("git+$url.git")
 md5sums=("SKIP")
 
@@ -24,6 +26,3 @@ package() {
   cd $srcdir/$pkgname
   install -Dm 755 $pkgname $pkgdir/usr/bin/$pkgname
 } 
-
-# depends=('pygtk2') ?
-# optdepends=('compton-conf: ??')
