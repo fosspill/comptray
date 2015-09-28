@@ -33,6 +33,7 @@ def make_menu(event_button, event_time, data=None):
   if isinstalled():
      preference_item = gtk.MenuItem("Compton Config")
      menu.append(preference_item)
+     preference_item.connect_object("activate", openconfig, "Compton Config")
      preference_item.show()
   toggle_item.show()
   close_item.show()
@@ -45,6 +46,9 @@ def on_right_click(data, event_button, event_time):
  
 def on_left_click(event):
   togglecompton()
+
+def openconfig():
+	subprocess.check_call(["compton-config"])
   
 def comptonisrunning():
         try:
