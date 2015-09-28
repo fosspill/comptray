@@ -57,7 +57,7 @@ def comptonisrunning():
                 curstatus=False
         return curstatus
         
-def isinstalled(name="compton-conf")
+def isinstalled(name="compton-conf"):
         try:
                 output = check_output(["which", name])
         except CalledProcessError as e:
