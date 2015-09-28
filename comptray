@@ -4,7 +4,7 @@ import sys
 import os
 import os.path
 import gtk
-from subprocess import CalledProcessError, check_output, call
+from subprocess import CalledProcessError, check_output, call, check_call
 
 pygtklibdir = os.path.join("/usr/lib", "pygtk", "2.0")
 sys.path.insert(0, pygtklibdir)
@@ -48,7 +48,7 @@ def on_left_click(event):
   togglecompton()
 
 def openconfig(data=None):
-	subprocess.check_call(["compton-conf"])
+	check_call(["compton-conf"])
   
 def comptonisrunning():
         try:
