@@ -87,7 +87,7 @@ def check_for_update():
     return iconname
 
 def update_icon():
-    if tray.get_icon_name() == check_for_update():
+    if tray.get_stock() == check_for_update():
       return True
     else:
       tray.set_from_stock(check_for_update())
