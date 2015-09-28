@@ -48,7 +48,7 @@ def on_left_click(event):
   togglecompton()
 
 def openconfig(data=None):
-	check_call(["compton-conf"])
+	call(["compton-conf"])
   
 def comptonisrunning():
         try:
