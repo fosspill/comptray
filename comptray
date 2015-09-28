@@ -25,17 +25,17 @@ def make_menu(event_button, event_time, data=None):
   
   #Append the menu items
   menu.append(toggle_item)
-  menu.append(close_item)
-  #add callbacks
-  toggle_item.connect_object("activate", togglecompton, "Toggle")
-  close_item.connect_object("activate", close_app, "Quit")
-  #Show the menu items
   #Check if compton-config is installed
   if isinstalled():
      preference_item = gtk.MenuItem("Compton Config")
      menu.append(preference_item)
      preference_item.connect_object("activate", openconfig, "Compton Config")
      preference_item.show()
+  menu.append(close_item)
+  #add callbacks
+  toggle_item.connect_object("activate", togglecompton, "Toggle")
+  close_item.connect_object("activate", close_app, "Quit")
+  #Show the menu items
   toggle_item.show()
   close_item.show()
   
