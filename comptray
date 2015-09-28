@@ -51,6 +51,17 @@ def comptonisrunning():
         else:
                 curstatus=False
         return curstatus
+        
+def isinstalled(name="compton-conf")
+        try:
+                output = check_output(["which", name])
+        except CalledProcessError as e:
+                output=False
+        if output:
+                installed=True
+        else:
+                installed=False
+        return installed
 
 def togglecompton(data=None):
     if comptonisrunning():
@@ -60,7 +71,7 @@ def togglecompton(data=None):
         call(["compton", "-b"])
 	tray.set_from_stock(gtk.STOCK_YES)
 
- 
+
 if __name__ == '__main__':
   tray = gtk.StatusIcon()
   tray.set_from_stock(gtk.STOCK_YES)
