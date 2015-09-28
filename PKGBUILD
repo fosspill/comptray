@@ -11,7 +11,7 @@ url="http://github.com/oleerik/comptray"
 license=('GPL')
 depends=('python2'
 	'gtk2'
-	'pygtk2'
+	'pygtk'
 	'compton')
 optdepends=('compton-conf: GUI configuration for Compton')
 source=("git+$url.git")
