@@ -4,7 +4,7 @@ import sys
 import os
 import os.path
 import gtk
-from subprocess import CalledProcessError, check_output, call
+from subprocess import CalledProcessError, check_output, call, check_call
 
 pygtklibdir = os.path.join("/usr/lib", "pygtk", "2.0")
 sys.path.insert(0, pygtklibdir)
@@ -29,6 +29,12 @@ def make_menu(event_button, event_time, data=None):
   toggle_item.connect_object("activate", togglecompton, "Toggle")
   close_item.connect_object("activate", close_app, "Quit")
   #Show the menu items
+  #Check if compton-config is installed
+  if isinstalled():
+     preference_item = gtk.MenuItem("Compton Config")
+     menu.append(preference_item)
+     preference_item.connect_object("activate", openconfig, "Compton Config")
+     preference_item.show()
   toggle_item.show()
   close_item.show()
   
@@ -40,6 +46,9 @@ def on_right_click(data, event_button, event_time):
  
 def on_left_click(event):
   togglecompton()
+
+def openconfig(data=None):
+	call(["compton-conf"])
   
 def comptonisrunning():
         try:
@@ -52,7 +61,7 @@ def comptonisrunning():
                 curstatus=False
         return curstatus
         
-def isinstalled(name="compton-conf")
+def isinstalled(name="compton-conf"):
         try:
                 output = check_output(["which", name])
         except CalledProcessError as e:
