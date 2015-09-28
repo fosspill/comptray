@@ -4,6 +4,7 @@ import sys
 import os
 import os.path
 import gtk
+import gobject
 from subprocess import CalledProcessError, check_output, call, check_call
 
 pygtklibdir = os.path.join("/usr/lib", "pygtk", "2.0")
@@ -75,15 +76,29 @@ def isinstalled(name="compton-conf"):
 def togglecompton(data=None):
     if comptonisrunning():
         call(["pkill", "compton"])
-	tray.set_from_stock(gtk.STOCK_NO)
     else:
         call(["compton", "-b"])
-	tray.set_from_stock(gtk.STOCK_YES)
+	
+def check_for_update():		
+    if comptonisrunning():
+        iconname=gtk.STOCK_YES
+    else:
+        iconname=gtk.STOCK_NO
+    return iconname
 
+def update_icon():
+    if tray.get_icon_name() == comptonisrunning():
+      return True
+    else:
+      tray.set_from_stock(check_for_update())
+      return True
+
+#Continuesly check for status update
+gobject.timeout_add(1000, update_icon)
 
 if __name__ == '__main__':
   tray = gtk.StatusIcon()
-  tray.set_from_stock(gtk.STOCK_YES)
+  tray.set_from_stock(check_for_update())
   tray.set_tooltip(('Comptray'))
   tray.connect('popup-menu', on_right_click)
   tray.connect('activate', on_left_click)
