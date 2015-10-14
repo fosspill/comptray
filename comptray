@@ -11,10 +11,7 @@ pygtklibdir = os.path.join("/usr/lib", "pygtk", "2.0")
 sys.path.insert(0, pygtklibdir)
 # found on <http://files.majorsilence.com/rubbish/pygtk-book/pygtk-notebook-html/pygtk-notebook-latest.html#SECTION00430000000000000000>
 # simple example of a tray icon application using PyGTK
-
-arguments= "-b"
-configpath= os.path.expanduser("~")+"/.config/comptray.conf"
-
+ 
 def close_app(data=None):
   gtk.main_quit()
  
@@ -27,14 +24,7 @@ def make_menu(event_button, event_time, data=None):
   close_item = gtk.MenuItem("Quit")
   
   #Append the menu items
-  menu.append(toggle_item)  
-
-  #Add arguments item
-  arguments_item = gtk.MenuItem("Arguments")
-  arguments_item.connect_object("activate", openargedit, "Arguments")
-  menu.append(arguments_item)
-  arguments_item.show()
-
+  menu.append(toggle_item)
   #Check if compton-config is installed
   if isinstalled():
      preference_item = gtk.MenuItem("Compton Config")
@@ -60,19 +50,6 @@ def on_left_click(event):
 
 def openconfig(data=None):
 	call(["compton-conf"])
-
-def loadconfig():
-    if os.path.isfile(configpath):
-        f = open(configpath, "r")
-        arguments = f.readline()
-        f.close()
-    else:
-        f = open(configpath, "w+")
-        f.write(arguments)
-        f.close()
-
-def openargedit(data=None):
-	call(["xdg-open", configpath])
   
 def comptonisrunning():
         try:
@@ -100,7 +77,7 @@ def togglecompton(data=None):
     if comptonisrunning():
         call(["pkill", "compton"])
     else:
-        call(["compton", arguments])
+        call(["compton", "-b"])
 	
 def check_for_update():		
     if comptonisrunning():
@@ -125,5 +102,4 @@ if __name__ == '__main__':
   tray.set_tooltip(('Comptray'))
   tray.connect('popup-menu', on_right_click)
   tray.connect('activate', on_left_click)
-  loadconfig()
   gtk.main()
