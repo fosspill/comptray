@@ -72,7 +72,7 @@ def loadconfig():
         f.close()
 
 def openargedit(data=None):
-	e = call(["xdg-open", configpath])
+	call(["xdg-open", configpath])
   
 def comptonisrunning():
         try:
