@@ -66,6 +66,10 @@ def loadconfig():
         f = open(configpath, "r")
         arguments = f.readline()
         f.close()
+    else:
+        f = open(configpath, "w+")
+        f.write(arguments)
+        f.close()
 
 def openargedit(data=None):
 	e = call(["xdg-open", configpath])
