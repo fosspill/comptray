@@ -104,6 +104,10 @@ def openargedit(data=None):
     #Get arguments
     arguments = entry.get_text()
     dialog.destroy()
+    saveconfig()
+    if comptonisrunning():
+        togglecompton()
+        togglecompton()
 
 def comptonisrunning():
         try:
@@ -133,7 +137,8 @@ def togglecompton(data=None):
     if comptonisrunning():
         call(["pkill", "compton"])
     else:
-        call(["compton", arguments])
+        cmd = 'compton ' + arguments
+        call(cmd.split(' '))
         print('Launched \"compton '+arguments+"\"") 
 	
 def check_for_update():		
