@@ -16,6 +16,7 @@ arguments= "-b"
 configpath= os.path.expanduser("~")+"/.config/comptray.conf"
 
 def close_app(data=None):
+  saveconfig()
   gtk.main_quit()
  
 def make_menu(event_button, event_time, data=None):
@@ -62,6 +63,8 @@ def openconfig(data=None):
 	call(["compton-conf"])
 
 def loadconfig():
+    global arguments
+
     if os.path.isfile(configpath):
         f = open(configpath, "r")
         arguments = f.readline()
@@ -71,9 +74,37 @@ def loadconfig():
         f.write(arguments)
         f.close()
 
+def saveconfig():
+    global arguments
+
+    f = open(configpath, "w+")
+    f.write(arguments)
+    f.close()
+
+def responseToDialog(entry, dialog, response):
+    dialog.response(response)
+
 def openargedit(data=None):
-	call(["xdg-open", configpath])
-  
+    #We need global value arguments here
+    global arguments
+
+    #Create dialog
+    dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL| gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK, None)
+    dialog.set_markup('Enter the desired arguments.\nAlways include \"-b\" argument')
+    entry = gtk.Entry()
+    entry.connect("activate", responseToDialog, dialog, gtk.RESPONSE_OK)
+    hbox = gtk.HBox()
+    hbox.pack_start(gtk.Label('compton '), False, 5, 5)
+    hbox.pack_end(entry)
+    dialog.vbox.pack_end(hbox, True, True, 0)
+    #set the text 
+    entry.set_text(arguments)
+    dialog.show_all()
+    dialog.run()
+    #Get arguments
+    arguments = entry.get_text()
+    dialog.destroy()
+
 def comptonisrunning():
         try:
                 output = check_output(["pgrep", "compton"])
@@ -97,10 +128,13 @@ def isinstalled(name="compton-conf"):
         return installed
 
 def togglecompton(data=None):
+    global arguments
+
     if comptonisrunning():
         call(["pkill", "compton"])
     else:
         call(["compton", arguments])
+        print('Launched \"compton '+arguments+"\"") 
 	
 def check_for_update():		
     if comptonisrunning():
