@@ -1,3 +1,5 @@
+#MOVED TO GITLAB https://gitlab.com/oleerik/comptray
+
 # comptray
 compton toggle for tray
 
